@@ -1,0 +1,52 @@
+@baseUrl = http://localhost:8080
+@accessToken = PASTE_ACCESS_TOKEN_HERE
+
+### Health
+GET {{baseUrl}}/healthz
+
+### Ready
+GET {{baseUrl}}/readyz
+
+### Register
+POST {{baseUrl}}/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "Saurav Sarkar",
+  "email": "saurav@example.com",
+  "password": "StrongPass123!"
+}
+
+### Verify email (copy token from development mail log)
+POST {{baseUrl}}/api/v1/auth/verify-email
+Content-Type: application/json
+
+{
+  "token": "PASTE_TOKEN_FROM_LOG"
+}
+
+### Login admin
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "ChangeMe123!"
+}
+
+### Me
+GET {{baseUrl}}/api/v1/users/me
+Authorization: Bearer {{accessToken}}
+
+### Admin users: pagination + search + filter + sort
+GET {{baseUrl}}/api/v1/admin/users?page=1&limit=20&search=&role=&isVerified=true&isActive=true&sortBy=createdAt&sortOrder=desc
+Authorization: Bearer {{accessToken}}
+
+### Refresh (uses refresh_token cookie if your HTTP client stores cookies)
+POST {{baseUrl}}/api/v1/auth/refresh
+Content-Type: application/json
+
+{}
+
+### Logout
+POST {{baseUrl}}/api/v1/auth/logout
